@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Undangan Pernikahan - Cherry & Cream</title>
+  
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo"><i class="fa-solid fa-heart"></i></div>
+      <div class="brand-text">
+        <h2>Cherry & Cream</h2>
+        <p>Wedding Dashboard</p>
+      </div>
+    </div>
+    
+    <nav class="nav-menu">
+      <button class="nav-item active" onclick="showTab('dashboard')">
+        <i class="fa-solid fa-chart-pie"></i>
+        <span>Dashboard</span>
+      </button>
+      <button class="nav-item" onclick="showTab('rsvp')">
+        <i class="fa-solid fa-clipboard-user"></i>
+        <span>Data RSVP & Ucapan</span>
+      </button>
+      <button class="nav-item" onclick="showTab('qr')">
+        <i class="fa-solid fa-qrcode"></i>
+        <span>Pengaturan QR Code</span>
+      </button>
+      <button class="nav-item" onclick="showTab('pengantin')">
+        <i class="fa-solid fa-user-pen"></i>
+        <span>Edit Pengantin</span>
+      </button>
+      <button class="nav-item" onclick="showTab('musik')">
+        <i class="fa-solid fa-music"></i>
+        <span>Pengaturan Musik</span>
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div>
+        <h1 class="page-title" id="pageTitle">Overview Dashboard</h1>
+        <p class="page-subtitle" id="pageSubtitle">Ringkasan kehadiran dan aktivitas tamu undangan Anda</p>
+      </div>
+      <div class="user-profile">
+        <i class="fa-regular fa-bell font-lg" style="margin-right: 15px; cursor: pointer; color: var(--cherry-main);"></i>
+        <div class="avatar">R&A</div>
+        <span style="font-weight: 600; font-size: 0.9rem;">Romeo & Julia</span>
+      </div>
+    </header>
+
+    <!-- Content Sections -->
+    <div class="content-container">
+
+      <!-- TAB 1: DASHBOARD OVERVIEW -->
+      <section id="tab-dashboard" class="tab-content active">
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+          <div class="stat-card border-cherry">
+            <div class="stat-icon bg-cherry"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-info">
+              <p>Total Tamu Merespon</p>
+              <h3 id="statTotal">0</h3>
+            </div>
+          </div>
+          <div class="stat-card border-green">
+            <div class="stat-icon bg-green"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="stat-info">
+              <p>Pasti Hadir</p>
+              <h3 id="statHadir">0</h3>
+            </div>
+          </div>
+          <div class="stat-card border-red">
+            <div class="stat-icon bg-red"><i class="fa-solid fa-circle-xmark"></i></div>
+            <div class="stat-info">
+              <p>Tidak Hadir</p>
+              <h3 id="statAbsen">0</h3>
+            </div>
+          </div>
+          <div class="stat-card border-amber">
+            <div class="stat-icon bg-amber"><i class="fa-solid fa-circle-question"></i></div>
+            <div class="stat-info">
+              <p>Masih Ragu-ragu</p>
+              <h3 id="statRagu">0</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick RSVP Preview -->
+        <div class="card">
+          <div class="card-header">
+            <h3>RSVP Terbaru</h3>
+            <button class="btn btn-outline" onclick="showTab('rsvp')">Lihat Semua Data</button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Nama Tamu</th>
+                    <th>Kehadiran</th>
+                    <th>Jumlah Tamu</th>
+                    <th>Pesan / Ucapan</th>
+                  </tr>
+                </thead>
+                <tbody id="dashRsvpTable">
+                  <!-- Dynamic JS injection -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: DATA RSVP -->
+      <section id="tab-rsvp" class="tab-content">
+        <div class="card">
+          <div class="card-header flex-between">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="rsvpSearch" placeholder="Cari nama tamu..." oninput="filterRsvpTable()">
+            </div>
+            <div class="filter-box">
+              <select id="rsvpFilter" onchange="filterRsvpTable()">
+                <option value="all">Semua Kehadiran</option>
+                <option value="Hadir">Hadir</option>
+                <option value="Tidak Hadir">Tidak Hadir</option>
+                <option value="Ragu-ragu">Ragu-ragu</option>
+              </select>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Nama Tamu</th>
+                    <th>Status</th>
+                    <th>Jumlah</th>
+                    <th>Ucapan & Doa</th>
+                    <th style="text-align: center;">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="fullRsvpTable">
+                  <!-- Dynamic JS injection -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: PENGATURAN QR CODE -->
+      <section id="tab-qr" class="tab-content">
+        <div class="grid-2">
+          <!-- Form QR -->
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-sliders" style="margin-right: 8px;"></i>Pengaturan QR Digital</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label>Tipe QR Code</label>
+                <select id="qrType" onchange="generateQRCode()">
+                  <option value="bank">Amplop Digital (Nomor Bank / E-Wallet)</option>
+                  <option value="wa">Konfirmasi WhatsApp Admin</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Judul / Nama Penerima / Bank</label>
+                <input type="text" id="qrTitle" value="BCA - a.n Romeo" oninput="generateQRCode()">
+              </div>
+              <div class="form-group">
+                <label>Nomor Rekening / Nomor WhatsApp (dengan kode negara, misal: 62812...)</label>
+                <input type="text" id="qrValue" value="1234567890" oninput="generateQRCode()">
+              </div>
+              <div class="form-group">
+                <label>Pesan Tambahan</label>
+                <textarea id="qrNote" rows="3" oninput="generateQRCode()">Terima kasih atas doa dan restu Anda.</textarea>
+              </div>
+              <button class="btn btn-primary" onclick="alert('Pengaturan QR berhasil disimpan!')">
+                <i class="fa-solid fa-floppy-disk"></i> Simpan Pengaturan QR
+              </button>
+            </div>
+          </div>
+
+          <!-- Preview QR -->
+          <div class="card flex-center">
+            <div class="qr-preview-box">
+              <h4 class="aesthetic-title" style="font-size: 1.8rem; margin-bottom: 5px;" id="prevQrTypeTitle">Amplop Digital</h4>
+              <p style="font-size: 0.85rem; color: #777; margin-bottom: 15px;" id="prevQrSub">Scan QR di bawah untuk mengirim hadiah / angpao</p>
+              
+              <div id="qrcode" class="qr-canvas"></div>
+              
+              <div style="margin-top: 15px; width: 100%;">
+                <p style="font-weight: 700; color: var(--cherry-dark); font-size: 1.1rem;" id="prevQrTitle">BCA - a.n Romeo</p>
+                <p style="font-family: monospace; font-size: 1rem; color: #555; background: #fff; padding: 5px 10px; border-radius: 6px; display: inline-block; margin: 8px 0;" id="prevQrValue">1234567890</p>
+                <p style="font-size: 0.85rem; color: #666; font-style: italic;" id="prevQrNote">Terima kasih atas doa dan restu Anda.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: EDIT NAMA PENGANTIN -->
+      <section id="tab-pengantin" class="tab-content">
+        <div class="grid-2">
+          <!-- Form Edit -->
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-heart" style="margin-right: 8px;"></i>Informasi Mempelai</h3>
+            </div>
+            <div class="card-body">
+              <h4 style="color: var(--cherry-dark); margin-bottom: 10px;">Pengantin Pria</h4>
+              <div class="form-group">
+                <label>Nama Panggilan Pria</label>
+                <input type="text" id="groomNickname" value="Romeo" oninput="updateBridePreview()">
+              </div>
+              <div class="form-group">
+                <label>Nama Lengkap Pria</label>
+                <input type="text" id="groomFullname" value="Romeo Montague, S.Kom" oninput="updateBridePreview()">
+              </div>
+              <div class="form-group">
+                <label>Nama Orang Tua Pria</label>
+                <input type="text" id="groomParents" value="Putra dari Bpk. Lord Montague & Ibu Lady Montague" oninput="updateBridePreview()">
+              </div>
+
+              <hr style="border: 0; border-top: 1px dashed var(--cream-border); margin: 20px 0;">
+
+              <h4 style="color: var(--cherry-dark); margin-bottom: 10px;">Pengantin Wanita</h4>
+              <div class="form-group">
+                <label>Nama Panggilan Wanita</label>
+                <input type="text" id="brideNickname" value="Julia" oninput="updateBridePreview()">
+              </div>
+              <div class="form-group">
+                <label>Nama Lengkap Wanita</label>
+                <input type="text" id="brideFullname" value="Julia Capulet, S.T" oninput="updateBridePreview()">
+              </div>
+              <div class="form-group">
+                <label>Nama Orang Tua Wanita</label>
+                <input type="text" id="brideParents" value="Putri dari Bpk. Lord Capulet & Ibu Lady Capulet" oninput="updateBridePreview()">
+              </div>
+
+              <button class="btn btn-primary" onclick="alert('Data Pengantin Berhasil Diperbarui!')">
+                <i class="fa-solid fa-floppy-disk"></i> Simpan Nama Pengantin
+              </button>
+            </div>
+          </div>
+
+          <!-- Preview Aesthetic Card -->
+          <div class="card flex-center">
+            <div class="wedding-preview-card">
+              <p style="letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; color: var(--cherry-main);">The Wedding Of</p>
+              
+              <h2 class="aesthetic-title" style="font-size: 3rem; margin: 15px 0; color: var(--cherry-dark);" id="prevCoupleTitle">Romeo & Julia</h2>
+              
+              <div style="margin: 20px 0;">
+                <p style="font-weight: 700; font-size: 1.1rem; color: #333;" id="prevGroomFull">Romeo Montague, S.Kom</p>
+                <p style="font-size: 0.85rem; color: #666;" id="prevGroomParents">Putra dari Bpk. Lord Montague & Ibu Lady Montague</p>
+              </div>
+
+              <div style="font-family: 'Alex Brush', cursive; font-size: 2rem; color: var(--cherry-main); margin: 5px 0;">&</div>
+
+              <div style="margin: 20px 0;">
+                <p style="font-weight: 700; font-size: 1.1rem; color: #333;" id="prevBrideFull">Julia Capulet, S.T</p>
+                <p style="font-size: 0.85rem; color: #666;" id="prevBrideParents">Putri dari Bpk. Lord Capulet & Ibu Lady Capulet</p>
+              </div>
+
+              <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid var(--cream-border); font-size: 0.85rem; color: #888;">
+                Tampilan sampul web undangan
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: PENGATURAN MUSIK -->
+      <section id="tab-musik" class="tab-content">
+        <div class="grid-2">
+          <!-- Music Settings -->
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-music" style="margin-right: 8px;"></i>Kelola Audio Latar</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label>Pilih Lagu Preset</label>
+                <select id="presetAudio" onchange="changePresetAudio()">
+                  <option value="audio/romantic-acoustic.mp3">Acoustic Romantic Instrumental (Default)</option>
+                  <option value="audio/piano-wedding.mp3">Piano & String Ensemble</option>
+                  <option value="audio/sweet-love.mp3">Sweet Love Melodies</option>
+                </select>
+              </div>
+
+              <div style="text-align: center; margin: 15px 0; font-size: 0.85rem; color: #888; font-weight: 600;">
+                — ATAU UNGGAH FILE LAGU SENDIRI —
+              </div>
+
+              <div class="form-group">
+                <label>Unggah File MP3 Lokal</label>
+                <input type="file" id="audioFileInput" accept="audio/*" onchange="handleAudioUpload(event)">
+                <small style="color: #777; display: block; margin-top: 4px;">Format didukung: MP3, WAV, OGG (Maks. 10MB)</small>
+              </div>
+
+              <button class="btn btn-primary" onclick="alert('Pengaturan musik berhasil diterapkan!')">
+                <i class="fa-solid fa-floppy-disk"></i> Terapkan Lagu di Web
+              </button>
+            </div>
+          </div>
+
+          <!-- Audio Player Preview -->
+          <div class="card flex-center">
+            <div class="music-player-box">
+              <div class="album-art">
+                <i class="fa-solid fa-compact-disc fa-spin-slow"></i>
+              </div>
+              <h4 id="currentSongTitle" style="color: var(--cherry-dark); font-size: 1.1rem; margin-bottom: 5px;">Acoustic Romantic Instrumental</h4>
+              <p style="font-size: 0.85rem; color: #777; margin-bottom: 15px;">Musik Latar Undangan</p>
+
+              <audio id="bgAudioPlayer" controls style="width: 100%; border-radius: 30px;">
+                <source id="audioSource" src="audio/romantic-acoustic.mp3" type="audio/mpeg">
+                Browser Anda tidak mendukung pemutar audio.
+              </audio>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- External JS QRCode Library & Custom JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
