@@ -4,14 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Undangan Habib & Peby</title>
+<script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="m-0 text-[17px] leading-[1.65] text-[var(--ink)]">
 <div class="bg" aria-hidden="true"></div>
 <audio id="bgm" src="./assets/bgm.mp4" loop preload="metadata" muted hidden></audio>
 <header>
- <div class="bar">
+ <div class="bar mx-auto flex max-w-[1080px] items-center gap-4 px-5 py-2">
   <a class="logo sc" href="#about">Habib &amp; Peby</a>
   <nav id="nav">
    <a href="#about">Who Are We?</a>
@@ -19,25 +20,48 @@
    <a href="#gallery">Galeri & Story</a>
    <a href="#ucapan">Ucapan & Doa</a>
   </nav>
-  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
-   <svg class="theme-icon theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/>
-   </svg>
-   <svg class="theme-icon theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-    <circle cx="12" cy="12" r="4"/>
-    <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>
-   </svg>
-  </button>
-  <button class="sound-toggle" id="sound-toggle" type="button" aria-label="Aktifkan suara" aria-pressed="false" title="Aktifkan suara">
-   <svg class="sound-icon sound-icon-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M11 5 6 9H3v6h3l5 4V5Z"/>
-    <path d="M15.5 8.5a5 5 0 0 1 0 7m3-10a9 9 0 0 1 0 13"/>
-   </svg>
-   <svg class="sound-icon sound-icon-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M11 5 6 9H3v6h3l5 4V5Z"/>
-    <path d="m16 9 5 6m0-6-5 6"/>
-   </svg>
-  </button>
+  <div class="profile-menu" id="profile-menu">
+   <button class="profile-trigger" id="profile-trigger" type="button" aria-label="Buka menu profil" aria-expanded="false" aria-controls="profile-dropdown">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+     <circle cx="12" cy="8" r="4"/>
+     <path d="M5 21a7 7 0 0 1 14 0"/>
+    </svg>
+   </button>
+   <div class="profile-dropdown" id="profile-dropdown" hidden>
+    <p class="profile-dropdown-title">Preferensi</p>
+    <div class="profile-setting">
+     <span>Mode tampilan</span>
+     <button class="profile-action theme-toggle" id="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
+      <svg class="theme-icon theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+       <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/>
+      </svg>
+      <svg class="theme-icon theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+       <circle cx="12" cy="12" r="4"/>
+       <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>
+      </svg>
+     </button>
+    </div>
+    <div class="profile-setting">
+     <span>Suara undangan</span>
+     <button class="profile-action sound-toggle" id="sound-toggle" type="button" aria-label="Aktifkan suara" aria-pressed="false" title="Aktifkan suara">
+      <svg class="sound-icon sound-icon-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+       <path d="M11 5 6 9H3v6h3l5 4V5Z"/>
+       <path d="M15.5 8.5a5 5 0 0 1 0 7m3-10a9 9 0 0 1 0 13"/>
+      </svg>
+      <svg class="sound-icon sound-icon-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+       <path d="M11 5 6 9H3v6h3l5 4V5Z"/>
+       <path d="m16 9 5 6m0-6-5 6"/>
+      </svg>
+     </button>
+    </div>
+    <div class="profile-divider"></div>
+    <p class="profile-dropdown-title">Administrator</p>
+    <p class="admin-session-status" id="admin-session-status" role="status">Belum masuk</p>
+    <a class="admin-dashboard-link" id="admin-dashboard-link" href="dashboard.html" hidden>Buka dashboard admin</a>
+    <button class="admin-session-button" id="admin-login-button" type="button">Login admin (demo)</button>
+    <button class="admin-session-button" id="admin-logout-button" type="button" hidden>Keluar dari sesi demo</button>
+   </div>
+  </div>
   <button class="ib" id="burger" aria-label="Menu" aria-expanded="false">
    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
     <path d="M3 6h18M3 12h18M3 18h18"/>
@@ -58,68 +82,68 @@
   </div>
 </section>
 
-<section id="about" class="wrap">
- <div class="ab">
+<section id="about" class="wrap mx-auto max-w-[1080px] px-5 py-14">
+ <div class="ab grid grid-cols-1 items-center gap-9 md:grid-cols-[minmax(0,.85fr)_minmax(0,1.15fr)]">
   <div class="lace"><div class="wine"><h2 class="sc">Habib &amp; Peby</h2><div class="env"></div><div class="cr"></div>
-   <div class="pol p1"><div class="ph"><img src="./assets/s1.webp" alt="Foto prewedding Habib dan Peby, foto pertama"></div></div>
-   <div class="pol p2"><div class="ph"><img src="./assets/s2.webp" alt="Foto prewedding Habib dan Peby, foto kedua"></div></div>
+   <div class="pol p1"><div class="ph grid place-items-center overflow-hidden"><img src="./assets/s1.webp" alt="Foto prewedding Habib dan Peby, foto pertama"></div></div>
+   <div class="pol p2"><div class="ph grid place-items-center overflow-hidden"><img src="./assets/s2.webp" alt="Foto prewedding Habib dan Peby, foto kedua"></div></div>
   </div></div>
   <div class="cd-card">
    <p class="countdown-label">Countdown</p>
-  <div class="countdown">
+  <div class="countdown mb-[18px] grid grid-cols-4 gap-2.5">
    <div class="time-box"><b id="d">00</b><span>Hari</span></div>
    <div class="time-box"><b id="h">00</b><span>Jam</span></div>
    <div class="time-box"><b id="m">00</b><span>Menit</span></div>
    <div class="time-box"><b id="s">00</b><span>Detik</span></div>
   </div>
   <div class="jd">Jadwal Acara</div>
-  <dl class="jw"><dt>Akad Nikah</dt><dd>: 08.00 - 10.00</dd><dt>Resepsi</dt><dd>: 10.00 - selesai</dd><dt>Hari/Tanggal</dt><dd id="tgl">: 17 Agustus 2027</dd></dl>
-  <div class="loc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2"><path d="M12 22s7-6 7-12a7 7 0 10-14 0c0 6 7 12 7 12z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><span>Hotel Pangeran, Pekanbaru</span></div>
+  <dl class="jw grid grid-cols-[auto_1fr] gap-x-3.5 gap-y-1.5 text-[.95rem]"><dt>Akad Nikah</dt><dd>: 08.00 - 10.00</dd><dt>Resepsi</dt><dd>: 10.00 - selesai</dd><dt>Hari/Tanggal</dt><dd id="tgl">: 17 Agustus 2027</dd></dl>
+  <div class="loc flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2"><path d="M12 22s7-6 7-12a7 7 0 10-14 0c0 6 7 12 7 12z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><span>Hotel Pangeran, Pekanbaru</span></div>
   </div>
  </div>
 </section>
 
-<section class="kp">
- <div class="kl"><h2 class="sc">Kata Pengantar</h2>
-  <div class="lb">
+<section class="kp grid min-h-[470px] grid-cols-1 md:grid-cols-[1.05fr_1fr]">
+ <div class="kl flex flex-col items-center gap-7 px-7 pt-9 pb-11"><h2 class="sc">Kata Pengantar</h2>
+  <div class="lb relative w-full max-w-[520px]">
    <svg class="bow" viewBox="0 0 64 64"><path d="M32 30C20 14 4 16 6 26c2 8 18 6 26 4zM32 30C44 14 60 16 58 26c-2 8-18 6-26 4z" fill="#8c1228"/><circle cx="32" cy="30" r="5" fill="#a8212f"/><path d="M30 34C26 46 22 54 14 62M34 34C38 46 44 54 50 62" stroke="#8c1228" stroke-width="4" fill="none"/></svg>
    <div class="pp">Maha Suci Allah SWT yang telah menciptakan makhluk-Nya berpasang-pasangan. Tanpa mengurangi rasa hormat, melalui undangan digital ini kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu pada acara pernikahan kami.</div>
    <svg class="fl" viewBox="0 0 110 90"><path d="M10 72c10-22 22-30 34-34M68 82c14-6 28-22 38-32" stroke="#9c6a3a" stroke-width="5" fill="none"/><ellipse cx="20" cy="50" rx="14" ry="7" fill="#9c6a3a" transform="rotate(-40 20 50)"/><circle cx="46" cy="56" r="26" fill="#5e1021"/><circle cx="46" cy="56" r="16" fill="#8c1f33"/><circle cx="46" cy="56" r="6" fill="#5e1021"/><circle cx="84" cy="42" r="18" fill="#6d1424"/><circle cx="84" cy="42" r="9" fill="#a02a40"/></svg>
   </div></div>
- <div class="ph kr"><img src="./assets/s1.webp" alt="Foto mempelai pria dan wanita"></div>
+ <div class="ph kr grid place-items-center overflow-hidden"><img src="./assets/s1.webp" alt="Foto mempelai pria dan wanita"></div>
 </section>
 
-<section class="wrap">
- <h2 class="ttl sc">Mempelai</h2>
- <div class="couple">
-  <div class="card cp"><div class="ph"><img src="./assets/groom.webp" alt="Foto mempelai pria, Habib Hidayatullah"></div><div><small>Mempelai Pria</small><h3 class="sc">Habib Hidayatullah, ST.</h3><p>Putra dari Bapak Agus &amp; Ibu Yani</p></div></div>
-  <div class="card cp r"><div class="ph"><img src="./assets/bride.webp" alt="Foto mempelai wanita, Peby Pebrianti"></div><div><small>Mempelai Wanita</small><h3 class="sc">Peby Pebrianti, ST.</h3><p>Putri dari Bapak Riki &amp; Ibu Alya</p></div></div>
+<section class="wrap mx-auto max-w-[1080px] px-5 py-14">
+ <h2 class="ttl sc mb-[26px] text-center text-5xl">Mempelai</h2>
+ <div class="couple grid grid-cols-1 gap-6 md:grid-cols-2">
+  <div class="card cp"><div class="ph grid place-items-center overflow-hidden"><img src="./assets/groom.webp" alt="Foto mempelai pria, Habib Hidayatullah"></div><div><small>Mempelai Pria</small><h3 class="sc">Habib Hidayatullah, ST.</h3><p>Putra dari Bapak Agus &amp; Ibu Yani</p></div></div>
+  <div class="card cp r"><div class="ph grid place-items-center overflow-hidden"><img src="./assets/bride.webp" alt="Foto mempelai wanita, Peby Pebrianti"></div><div><small>Mempelai Wanita</small><h3 class="sc">Peby Pebrianti, ST.</h3><p>Putri dari Bapak Riki &amp; Ibu Alya</p></div></div>
  </div>
 </section>
 
-<section id="location" class="wrap">
- <h2 class="ttl sc">Waktu &amp; Lokasi Acara</h2>
- <div class="two">
+<section id="location" class="wrap mx-auto max-w-[1080px] px-5 py-14">
+ <h2 class="ttl sc mb-[26px] text-center text-5xl">Waktu &amp; Lokasi Acara</h2>
+ <div class="two grid grid-cols-1 gap-6 md:grid-cols-[1fr_1.4fr]">
   <div class="card">
-    <div class="ev" style="text-align: center;">
+    <div class="ev text-center">
         <h3>Akad Nikah</h3><p>08.00 - 10.00 WIB</p>
     </div>
-    <div class="ev" style="text-align: center;"">
+    <div class="ev text-center">
         <h3>Resepsi Pernikahan</h3><p>10.00 - selesai</p></div>
     </div>
-  <div class="ph map"><b>Hotel Pangeran, Pekanbaru</b><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Hotel+Pangeran+Pekanbaru">Buka di Maps</a></div>
+  <div class="ph map grid place-items-center content-center gap-3"><b>Hotel Pangeran, Pekanbaru</b><a class="btn inline-block cursor-pointer rounded-full border-0 bg-[var(--acc)] px-[26px] py-2.5 text-[.95rem] text-[var(--on)] no-underline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Hotel+Pangeran+Pekanbaru">Buka di Maps</a></div>
  </div>
 </section>
 
-<section id="gallery" class="wrap">
- <h2 class="ttl sc">Gallery</h2>
- <div class="gal">
+<section id="gallery" class="wrap mx-auto max-w-[1080px] px-5 py-14">
+ <h2 class="ttl sc mb-[26px] text-center text-5xl">Gallery</h2>
+ <div class="gal grid grid-cols-1 gap-6 md:grid-cols-[1.4fr_1fr]">
   <div><div class="car" id="car" tabindex="0" aria-roledescription="carousel" aria-label="Galeri foto">
     <div class="trk" id="trk"></div><button class="nv p" id="pv" aria-label="Sebelumnya">‹</button>
     <button class="nv n" id="nx" aria-label="Berikutnya">›</button>
     <span class="cc" id="cc">1 / 6</span></div>
-  <div class="dots" id="dots"></div></div>
-  <div class="card story"><h3 class="sc" style="text-align: center;">Story</h3><p>
+  <div class="dots mt-3 flex justify-center gap-2" id="dots"></div></div>
+  <div class="card story"><h3 class="sc text-center">Story</h3><p>
     Kisah kami bermula dari pertemuan sederhana yang tumbuh menjadi komitmen. 
     Dari sekadar kenal, tumbuh rasa nyaman, hingga akhirnya saling menyadari bahwa kita adalah jawaban dari apa yang selama ini dicari.
   </p>
@@ -130,24 +154,33 @@
  </div>
 </section>
 
-<section id="ucapan" class="wrap">
- <h2 class="ttl sc">Ucapan &amp; Doa</h2>
- <div class="rs">
+<section id="ucapan" class="wrap mx-auto max-w-[1080px] px-5 py-14">
+ <h2 class="ttl sc mb-[26px] text-center text-5xl">Ucapan &amp; Doa</h2>
+ <div class="rs grid grid-cols-1 items-start gap-6 md:grid-cols-[1fr_1.2fr]">
   <form class="card" id="f">
    <p class="stat" id="stat"></p>
-   <div class="cnt">
+   <div class="cnt mb-3.5 grid grid-cols-2 gap-2.5">
     <label><input type="radio" name="h" value="1" checked><span id="nh">0</span> Hadir</label>
     <label><input type="radio" name="h" value="0"><span id="nt">0</span> Tidak hadir</label>
    </div>
    <input type="text" id="nm" placeholder="Nama" maxlength="40" required>
    <textarea id="tx" placeholder="Ucapan" maxlength="300" required></textarea>
-   <div class="form-actions"><button class="btn" type="submit">Kirim</button></div>
+   <div class="form-actions flex justify-end"><button class="btn inline-block cursor-pointer rounded-full border-0 bg-[var(--acc)] px-[26px] py-2.5 text-[.95rem] text-[var(--on)] no-underline" type="submit">Kirim</button></div>
   </form>
-  <div class="list" id="list"></div>
+  <div class="list grid max-h-[460px] content-start gap-2.5 overflow-y-auto" id="list"></div>
  </div>
 </section>
 </main>
 <footer>Create with love from Kelompok 8! Terima kasih telah mampir!</footer>
+
+<dialog class="admin-login-dialog" id="admin-login-dialog" aria-labelledby="admin-login-title">
+ <div class="admin-login-content">
+  <button class="admin-login-close" id="admin-login-close" type="button" aria-label="Tutup">×</button>
+  <h2 id="admin-login-title">Sesi Admin Demo</h2>
+  <p>Ini hanya simulasi antarmuka. Tidak ada akun atau kata sandi yang diverifikasi, dan halaman dashboard belum dilindungi.</p>
+  <button class="admin-session-button" id="admin-demo-login" type="button">Mulai sesi demo admin</button>
+ </div>
+</dialog>
 
 <script src="script.js" defer></script>
 </body>

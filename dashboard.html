@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="id" class="dashboard-document">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Undangan Pernikahan - Habib &amp; Peby</title>
+    <!-- Tailwind CSS CDN -->
+    <script>
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            theme: { extend: { colors: {
+                white: "#fdf8f1",
+                gray: {
+                    50: "#fdf8f1", 100: "#f6f1e9", 200: "#e5d9cd",
+                    300: "#d6c6b8", 400: "#97606b", 500: "#80636a",
+                    600: "#6e1b2a", 700: "#5a1724", 800: "#42131d", 900: "#2c0d15"
+                },
+                rose: {
+                    50: "#f8eeee", 100: "#f0dfe1", 200: "#dfc2c7",
+                    300: "#c9a0a9", 400: "#ab7180", 500: "#8c4a5a",
+                    600: "#7a1f2e", 700: "#6e1b2a", 800: "#561522",
+                    900: "#44101b", 950: "#2c0a12"
+                }
+            } } }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-page bg-gray-100 text-gray-800 antialiased">
+
+    <div class="dashboard-shell flex h-screen overflow-hidden">
+        
+        <!-- Sidebar (Desktop) -->
+        <aside class="dashboard-sidebar w-64 bg-rose-900 text-white flex flex-col justify-between p-5 hidden md:flex shrink-0">
+            <div>
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="dashboard-brand-mark w-10 h-10 rounded-full bg-rose-700 flex items-center justify-center font-bold text-rose-100 border border-rose-500">
+                        H&amp;P
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-2xl leading-tight" style="font-family: 'Great Vibes', cursive;">Habib &amp; Peby</h1>
+                        <p class="dashboard-brand-subtitle text-xs text-rose-300">Admin Undangan</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-1.5" id="sidebar-nav">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-4 py-3 text-rose-100 hover:bg-rose-800/60 rounded-xl text-sm font-medium transition active-tab">
+                        <i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard
+                    </button>
+                    <button onclick="switchTab('rsvp')" id="nav-rsvp" class="w-full flex items-center gap-3 px-4 py-3 text-rose-100 hover:bg-rose-800/60 rounded-xl text-sm font-medium transition">
+                        <i data-lucide="clipboard-check" class="w-5 h-5"></i> Data RSVP &amp; Ucapan
+                    </button>
+                    <button onclick="switchTab('amplop')" id="nav-amplop" class="w-full flex items-center gap-3 px-4 py-3 text-rose-100 hover:bg-rose-800/60 rounded-xl text-sm font-medium transition">
+                        <i data-lucide="gift" class="w-5 h-5"></i> Amplop Digital
+                    </button>
+                    <button onclick="switchTab('pengantin')" id="nav-pengantin" class="w-full flex items-center gap-3 px-4 py-3 text-rose-100 hover:bg-rose-800/60 rounded-xl text-sm font-medium transition">
+                        <i data-lucide="heart" class="w-5 h-5"></i> Edit Pengantin
+                    </button>
+                    <button onclick="switchTab('musik')" id="nav-musik" class="w-full flex items-center gap-3 px-4 py-3 text-rose-100 hover:bg-rose-800/60 rounded-xl text-sm font-medium transition">
+                        <i data-lucide="music-2" class="w-5 h-5"></i> Pengaturan Musik
+                    </button>
+                    <button onclick="switchTab('settings')" id="nav-settings" class="w-full flex items-center gap-3 px-4 py-3 text-rose-100 hover:bg-rose-800/60 rounded-xl text-sm font-medium transition">
+                        <i data-lucide="settings" class="w-5 h-5"></i> Pengaturan Web
+                    </button>
+                </nav>
+            </div>
+
+            <div class="border-t border-rose-800/80 pt-4">
+                <button onclick="showToast('Berhasil logout')" class="dashboard-logout w-full flex items-center gap-3 px-4 py-2.5 text-rose-200 hover:text-white hover:bg-rose-800/40 rounded-lg text-sm transition">
+                    <i data-lucide="log-out" class="w-5 h-5"></i> Keluar
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="dashboard-main flex-1 flex flex-col overflow-y-auto">
+            
+            <!-- Top Header -->
+            <header class="dashboard-topbar bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                    <h2 id="header-title" class="text-xl font-bold text-gray-800">Dashboard Utama</h2>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <a href="index.html" target="_blank" rel="noopener" class="bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 px-3.5 py-2 rounded-lg text-xs md:text-sm font-semibold flex items-center gap-2 transition">
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">Pratinjau Web Undangan</span>
+                    </a>
+                </div>
+            </header>
+
+            <!-- Mobile Navigation Drawer -->
+            <div id="mobile-menu" class="dashboard-mobile-menu hidden md:hidden bg-rose-900 text-white p-4 space-y-2 border-b border-rose-800">
+                <button onclick="switchTab('dashboard'); toggleMobileMenu();" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-rose-800">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard
+                </button>
+                <button onclick="switchTab('rsvp'); toggleMobileMenu();" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-rose-800">
+                    <i data-lucide="clipboard-check" class="w-5 h-5"></i> Data RSVP &amp; Ucapan
+                </button>
+                <button onclick="switchTab('amplop'); toggleMobileMenu();" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-rose-800">
+                    <i data-lucide="gift" class="w-5 h-5"></i> Amplop Digital
+                </button>
+                <button onclick="switchTab('pengantin'); toggleMobileMenu();" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-rose-800">
+                    <i data-lucide="heart" class="w-5 h-5"></i> Edit Pengantin
+                </button>
+                <button onclick="switchTab('musik'); toggleMobileMenu();" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-rose-800">
+                    <i data-lucide="music-2" class="w-5 h-5"></i> Pengaturan Musik
+                </button>
+                <button onclick="switchTab('settings'); toggleMobileMenu();" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-rose-800">
+                    <i data-lucide="settings" class="w-5 h-5"></i> Pengaturan Web
+                </button>
+            </div>
+
+            <!-- Main Body Content -->
+            <main class="dashboard-content p-4 md:p-6 space-y-6">
+
+                <!-- TAB 1: DASHBOARD OVERVIEW -->
+                <section id="tab-dashboard" class="tab-content space-y-6">
+                    <!-- Cards Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Total Tamu Merespon</p>
+                                <h3 id="stat-total" class="text-2xl font-bold text-gray-800 mt-1">0</h3>
+                            </div>
+                            <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
+                                <i data-lucide="users" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Pasti Hadir</p>
+                                <h3 id="stat-hadir" class="text-2xl font-bold text-emerald-600 mt-1">0</h3>
+                            </div>
+                            <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+                                <i data-lucide="user-check" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Tidak Hadir</p>
+                                <h3 id="stat-absen" class="text-2xl font-bold text-amber-600 mt-1">0</h3>
+                            </div>
+                            <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
+                                <i data-lucide="user-x" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Layout 2 Kolom -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Ringkasan Tamu Terbaru -->
+                        <div class="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-bold text-gray-800">Daftar Tamu</h3>
+                            </div>
+                            <div class="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                                <input type="search" id="search-guest" oninput="renderGuestList()" placeholder="Cari nama tamu..." class="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm sm:max-w-xs">
+                                <div class="flex gap-2">
+                                    <select id="filter-status" onchange="renderGuestList()" class="min-w-0 flex-1 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm sm:flex-none">
+                                        <option value="ALL">Semua Status</option>
+                                        <option value="Hadir">Hadir</option>
+                                        <option value="Tidak Hadir">Tidak Hadir</option>
+                                        <option value="Belum Konfirmasi">Belum Konfirmasi</option>
+                                    </select>
+                                    <button onclick="openAddGuestModal()" aria-label="Tambah tamu" title="Tambah tamu" class="shrink-0 rounded-xl bg-rose-700 p-2 text-white transition hover:bg-rose-800">
+                                        <i data-lucide="plus" class="block h-4 w-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-sm">
+                                    <thead>
+                                        <tr class="text-gray-400 border-b border-gray-100">
+                                            <th class="pb-3 font-medium">Nama Tamu</th>
+                                            <th class="pb-3 font-medium">Kategori</th>
+                                            <th class="pb-3 font-medium">Status Kehadiran</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="guest-table-body" class="divide-y divide-gray-50">
+                                        <!-- Inject JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Ucapan Terbaru -->
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="font-bold text-gray-800">Ucapan Terbaru</h3>
+                                </div>
+                                <div id="dashboard-recent-wishes" class="space-y-3">
+                                    <!-- Inject JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tab-rsvp" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm space-y-4">
+                        <div class="flex flex-col sm:flex-row gap-3 justify-between">
+                            <h3 class="font-bold text-gray-800 text-lg">Data RSVP &amp; Ucapan</h3>
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <input id="rsvp-search" type="search" placeholder="Cari nama tamu..." oninput="renderRsvpList()" class="px-3 py-2 border border-gray-200 rounded-xl text-sm">
+                                <select id="rsvp-filter" onchange="renderRsvpList()" class="px-3 py-2 border border-gray-200 rounded-xl text-sm bg-white">
+                                    <option value="all">Semua Kehadiran</option>
+                                    <option value="Hadir">Hadir</option>
+                                    <option value="Tidak Hadir">Tidak Hadir</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto border border-gray-100 rounded-xl">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-gray-50 text-gray-500">
+                                    <tr>
+                                        <th class="p-3 font-semibold">Nama Tamu</th>
+                                        <th class="p-3 font-semibold">Status</th>
+                                        <th class="p-3 font-semibold">Ucapan &amp; Doa</th>
+                                        <th class="p-3 font-semibold text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rsvp-table-body" class="divide-y divide-gray-100 bg-white"></tbody>
+                            </table>
+                        </div>
+                        <p class="text-xs text-gray-400">Data RSVP pada halaman ini masih contoh untuk pratinjau.</p>
+                    </div>
+                </section>
+
+                <section id="tab-amplop" class="tab-content hidden space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm space-y-4">
+                            <h3 class="font-bold text-gray-800 text-lg">Pengaturan QR Amplop Digital</h3>
+                            <label class="block text-sm font-medium text-gray-600">Jenis QR
+                                <select id="qr-type" onchange="updateQrPreview()" class="mt-1 w-full p-2.5 border border-gray-200 rounded-xl bg-white">
+                                    <option value="bank">Amplop digital / rekening</option>
+                                    <option value="wa">Konfirmasi WhatsApp</option>
+                                </select>
+                            </label>
+                            <label class="block text-sm font-medium text-gray-600">Judul / penerima
+                                <input id="qr-title" type="text" value="BCA - a.n Habib Hidayatullah" oninput="updateQrPreview()" class="mt-1 w-full p-2.5 border border-gray-200 rounded-xl">
+                            </label>
+                            <label class="block text-sm font-medium text-gray-600">Nomor rekening / WhatsApp
+                                <input id="qr-value" type="text" value="8830-1234-99" oninput="updateQrPreview()" class="mt-1 w-full p-2.5 border border-gray-200 rounded-xl">
+                            </label>
+                            <label class="block text-sm font-medium text-gray-600">Pesan tambahan
+                                <textarea id="qr-note" rows="3" oninput="updateQrPreview()" class="mt-1 w-full p-2.5 border border-gray-200 rounded-xl">Terima kasih atas doa dan restu Anda.</textarea>
+                            </label>
+                            <button type="button" onclick="showToast('Pratinjau QR diperbarui. Belum disimpan ke undangan publik.')" class="bg-rose-700 hover:bg-rose-800 text-white px-5 py-2.5 rounded-xl text-sm font-semibold">Simpan pengaturan QR</button>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-center">
+                            <div class="w-full max-w-sm text-center space-y-3">
+                                <h3 id="qr-preview-type" class="text-xl font-bold text-rose-800">Amplop Digital</h3>
+                                <p id="qr-preview-description" class="text-sm text-gray-500">Pratinjau QR untuk hadiah digital.</p>
+                                <div id="qr-code" class="mx-auto min-h-40 w-40 rounded-xl border border-gray-100 bg-white p-2 flex items-center justify-center" aria-label="Pratinjau QR">
+                                    <span class="text-xs text-gray-400">QR tampil setelah pustaka QR dimuat</span>
+                                </div>
+                                <p id="qr-preview-title" class="font-semibold text-gray-800">BCA - a.n Habib Hidayatullah</p>
+                                <p id="qr-preview-value" class="font-mono text-sm text-gray-600">8830-1234-99</p>
+                                <p id="qr-preview-note" class="text-sm italic text-gray-500">Terima kasih atas doa dan restu Anda.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm space-y-4">
+                        <h3 class="font-bold text-gray-800 text-lg">Konfirmasi Amplop Masuk</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-800">Budi Santoso</p>
+                                    <p class="text-xs text-gray-400">Tercatat via Bank BCA</p>
+                                </div>
+                                <span class="text-sm font-bold text-emerald-600">Rp 500.000</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-800">Siti Nurhaliza</p>
+                                    <p class="text-xs text-gray-400">Tercatat via Bank Mandiri</p>
+                                </div>
+                                <span class="text-sm font-bold text-emerald-600">Rp 300.000</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tab-pengantin" class="tab-content hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm space-y-4">
+                            <h3 class="font-bold text-gray-800 text-lg">Informasi Mempelai</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <label class="block text-sm font-medium text-gray-600">Nama panggilan pria
+                                    <input id="groom-nickname" type="text" value="Habib" oninput="updateCouplePreview()" class="mt-1 w-full p-2.5 border border-gray-200 rounded-xl">
+                                </label>
+                                <label class="block text-sm font-medium text-gray-600">Nama panggilan wanita
+                                    <input id="bride-nickname" type="text" value="Peby" oninput="updateCouplePreview()" class="mt-1 w-full p-2.5 border border-gray-200 rounded-xl">
+                                </label>
+                                <label class="block text-sm font-medium text-gray-600">Nama lengkap pria
+                                    <input id="groom-fullname" type="text" value="Habib Hidayatullah, ST." oninput="updateCouplePreview()" class="mt-1 w-full p-2.5 border border-gray-200 rounded-xl">
+                                </label>
+                                <label class="block text-sm font-medium text-gray-600">Nama lengkap wanita
+                                    <input id="bride-fullname" type="text" value="Peby Pebrianti, ST." oninput="updateCouplePreview()" class="mt-1 w-full p-2.5 border border-gray-200 rounded-xl">
+                                </label>
+                                <label class="block text-sm font-medium text-gray-600">Orang tua pria
+                                    <input id="groom-parents" type="text" value="Putra dari Bapak Agus & Ibu Yani" oninput="updateCouplePreview()" class="mt-1 w-full p-2.5 border border-gray-200 rounded-xl">
+                                </label>
+                                <label class="block text-sm font-medium text-gray-600">Orang tua wanita
+                                    <input id="bride-parents" type="text" value="Putri dari Bapak Riki & Ibu Alya" oninput="updateCouplePreview()" class="mt-1 w-full p-2.5 border border-gray-200 rounded-xl">
+                                </label>
+                            </div>
+                            <button type="button" onclick="saveCouplePreview()" class="bg-rose-700 hover:bg-rose-800 text-white px-5 py-2.5 rounded-xl text-sm font-semibold">Perbarui pratinjau</button>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-center text-center">
+                            <div class="space-y-4">
+                                <p class="text-xs uppercase tracking-[.2em] text-rose-600">The Wedding Of</p>
+                                <h3 id="couple-preview-title" class="text-4xl text-rose-900" style="font-family: 'Great Vibes', cursive;">Habib &amp; Peby</h3>
+                                <p id="groom-preview-name" class="font-semibold">Habib Hidayatullah, ST.</p>
+                                <p id="groom-preview-parents" class="text-sm text-gray-500">Putra dari Bapak Agus &amp; Ibu Yani</p>
+                                <p class="text-2xl text-rose-600">&amp;</p>
+                                <p id="bride-preview-name" class="font-semibold">Peby Pebrianti, ST.</p>
+                                <p id="bride-preview-parents" class="text-sm text-gray-500">Putri dari Bapak Riki &amp; Ibu Alya</p>
+                                <p class="text-xs text-gray-400">Pratinjau lokal — tidak mengubah halaman undangan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tab-musik" class="tab-content hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm space-y-4">
+                            <h3 class="font-bold text-gray-800 text-lg">Pengaturan Musik</h3>
+                            <label class="block text-sm font-medium text-gray-600">Pilih lagu yang tersedia
+                                <select id="music-preset" onchange="previewPresetMusic()" class="mt-1 w-full p-2.5 border border-gray-200 rounded-xl bg-white">
+                                    <option value="../assets/bgm.mp4">Musik undangan saat ini</option>
+                                </select>
+                            </label>
+                            <div class="text-center text-xs font-semibold tracking-wider text-gray-400">ATAU PRATINJAU FILE LOKAL</div>
+                            <label class="block text-sm font-medium text-gray-600">Pilih audio (MP3, WAV, OGG)
+                                <input id="music-upload" type="file" accept="audio/mpeg,audio/wav,audio/ogg,audio/mp4" onchange="previewUploadedMusic(event)" class="mt-1 w-full p-2.5 border border-gray-200 rounded-xl">
+                            </label>
+                            <p id="music-preview-message" class="text-sm text-gray-500">File hanya diputar sebagai pratinjau di browser ini.</p>
+                            <button type="button" onclick="showToast('Lagu hanya dipratinjau. Belum diterapkan ke undangan publik.')" class="bg-rose-700 hover:bg-rose-800 text-white px-5 py-2.5 rounded-xl text-sm font-semibold">Terapkan pratinjau</button>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center">
+                            <div class="mb-4 grid h-24 w-24 place-items-center rounded-full bg-rose-50 text-rose-700">
+                                <i data-lucide="disc-3" class="h-12 w-12"></i>
+                            </div>
+                            <h3 id="music-preview-title" class="font-semibold text-gray-800">Musik undangan saat ini</h3>
+                            <audio id="music-player" controls preload="none" class="mt-4 w-full max-w-sm"></audio>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 5: PENGATURAN WEB -->
+                <section id="tab-settings" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm max-w-2xl space-y-5">
+                        <h3 class="font-bold text-gray-800 text-lg border-b pb-3">Informasi Acara Pernikahan</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Nama Mempelai Pria & Wanita</label>
+                                <input id="event-couple" type="text" value="Habib Hidayatullah &amp; Peby Pebrianti" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-rose-500">
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Tanggal Akad</label>
+                                    <input id="event-akad-date" type="date" value="2027-08-17" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-rose-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Tanggal Resepsi</label>
+                                    <input id="event-resepsi-date" type="date" value="2027-08-17" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-rose-500">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Lokasi Gedung / Alamat</label>
+                                <textarea id="event-location" rows="2" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-rose-500">Hotel Pangeran, Pekanbaru</textarea>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Waktu Akad</label>
+                                    <input id="event-akad-time" type="text" value="08.00 - 10.00 WIB" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Waktu Resepsi</label>
+                                    <input id="event-resepsi-time" type="text" value="10.00 - selesai" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Kata Pengantar</label>
+                                <textarea id="event-intro" rows="4" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm">Maha Suci Allah SWT yang telah menciptakan makhluk-Nya berpasang-pasangan.</textarea>
+                            </div>
+
+                            <button type="button" onclick="previewEventSettings()" class="bg-rose-700 hover:bg-rose-800 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition">
+                                Perbarui Pratinjau
+                            </button>
+                            <p id="event-settings-feedback" class="text-xs text-gray-400">Pratinjau lokal saja; perubahan belum tersimpan atau diterapkan ke undangan publik.</p>
+                            <div class="rounded-xl border border-rose-100 bg-rose-50/50 p-4 space-y-2">
+                                <p class="text-xs uppercase tracking-wider text-rose-600">Pratinjau konten acara</p>
+                                <p id="event-preview-couple" class="font-semibold text-gray-800">Habib Hidayatullah &amp; Peby Pebrianti</p>
+                                <p id="event-preview-akad" class="text-sm text-gray-600">Akad: 17 Agustus 2027 · 08.00 - 10.00 WIB</p>
+                                <p id="event-preview-resepsi" class="text-sm text-gray-600">Resepsi: 17 Agustus 2027 · 10.00 - selesai</p>
+                                <p id="event-preview-location" class="text-sm text-gray-600">Hotel Pangeran, Pekanbaru</p>
+                                <p id="event-preview-intro" class="text-sm text-gray-500">Maha Suci Allah SWT yang telah menciptakan makhluk-Nya berpasang-pasangan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Modal Tambah Tamu -->
+    <div id="modal-add-guest" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-xl">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-gray-800 text-lg">Tambah Tamu Undangan</h3>
+                <button onclick="closeAddGuestModal()" class="text-gray-400 hover:text-gray-600">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form id="form-add-guest" onsubmit="handleAddGuest(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Nama Tamu</label>
+                    <input type="text" id="input-guest-name" required placeholder="Contoh: Budi Santoso" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-rose-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Kategori</label>
+                    <select id="input-guest-category" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-rose-500">
+                        <option value="Keluarga">Keluarga</option>
+                        <option value="Teman SMA">Teman SMA</option>
+                        <option value="Rekan Kerja">Rekan Kerja</option>
+                        <option value="VIP">VIP</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Nomor WhatsApp (Opsional)</label>
+                    <input type="tel" id="input-guest-phone" placeholder="08123456789" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-rose-500">
+                </div>
+
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeAddGuestModal()" class="px-4 py-2 border border-gray-200 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50">Batal</button>
+                    <button type="submit" class="px-4 py-2 bg-rose-700 hover:bg-rose-800 text-white rounded-xl text-sm font-semibold">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-gray-900 text-white text-sm px-4 py-3 rounded-xl shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-2">
+        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+        <span id="toast-message">Notifikasi</span>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="script.js" defer></script>
+</body>
+</html>
